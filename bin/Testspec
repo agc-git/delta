@@ -1,0 +1,60 @@
+#! /bin/sh
+
+# $NetBSD: Testspec,v 1.1 2016/05/31 01:59:47 agc Exp $
+
+# Copyright (c) 2016 Alistair Crooks <agc@NetBSD.org>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+TESTNAME=delta
+
+# basic tests
+TESTSET_1_NAME=basics
+TESTSET_1_FILES='
+1
+2
+'
+TESTSET_1_CASE_1="-s eq:0 -o empty -e empty delta -d 1 2 2.diff"
+TESTSET_1_CASE_2="-s eq:0 -o empty -e empty delta -p 1 2.new 2.diff"
+TESTSET_1_CASE_3="-s eq:0 -o file:2 -e empty cat 2.new"
+
+# same test backwards
+TESTSET_2_NAME=backwards
+TESTSET_2_FILES='
+1
+2
+'
+TESTSET_2_CASE_1="-s eq:0 -o empty -e empty delta -d 2 1 2.diff"
+TESTSET_2_CASE_2="-s eq:0 -o empty -e empty delta -p 2 1.new 2.diff"
+TESTSET_2_CASE_3="-s eq:0 -o file:1 -e empty cat 1.new"
+
+# more extensive changes
+TESTSET_3_NAME=more_extensive_changes
+TESTSET_3_FILES='
+3
+4
+'
+TESTSET_3_CASE_1="-s eq:0 -o empty -e empty delta -d 4 3 4.diff"
+TESTSET_3_CASE_2="-s eq:0 -o empty -e empty delta -p 4 3.new 4.diff"
+TESTSET_3_CASE_3="-s eq:0 -o file:3 -e empty cat 3.new"
+
